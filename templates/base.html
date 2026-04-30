@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Spendora | Smart Finance</title>
+
+<link rel="icon"
+href="{{ url_for('static', filename='logo.png') }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:#f8fafc;
+color:#111827;
+animation:fadeIn .35s ease;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(8px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+a{
+transition:.2s;
+}
+
+a:hover{
+opacity:.88;
+}
+
+input,select{
+outline:none;
+transition:.2s;
+font-size:15px;
+background:white;
+}
+
+input:focus,
+select:focus{
+border-color:#111827 !important;
+box-shadow:0 0 0 4px rgba(17,24,39,.06);
+}
+
+button{
+cursor:pointer;
+transition:.2s;
+}
+
+button:hover{
+transform:translateY(-2px);
+opacity:.97;
+}
+
+.card-hover{
+transition:all .25s ease;
+}
+
+.card-hover:hover{
+transform:translateY(-4px);
+box-shadow:0 18px 35px rgba(0,0,0,.08) !important;
+}
+
+table{
+width:100%;
+}
+
+th{
+font-weight:700;
+color:#374151;
+}
+
+td,th{
+font-size:15px;
+}
+
+::selection{
+background:#111827;
+color:white;
+}
+
+::-webkit-scrollbar{
+width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#d1d5db;
+border-radius:20px;
+}
+
+/* TABLE WRAP */
+.table-wrap{
+overflow-x:auto;
+}
+
+/* MEDIUM */
+@media(max-width:1100px){
+
+div[style*="grid-template-columns:repeat(4,1fr)"]{
+grid-template-columns:repeat(2,1fr)!important;
+}
+
+div[style*="grid-template-columns:2fr 1fr"]{
+grid-template-columns:1fr!important;
+}
+
+div[style*="grid-template-columns:1fr 1fr"]{
+grid-template-columns:1fr!important;
+}
+
+}
+
+/* MOBILE */
+@media(max-width:760px){
+
+div[style*="display:flex; min-height:100vh"]{
+flex-direction:column!important;
+}
+
+div[style*="width:250px"]{
+width:100%!important;
+border-right:none!important;
+border-bottom:1px solid #e5e7eb!important;
+}
+
+div[style*="padding:35px"]{
+padding:20px!important;
+}
+
+div[style*="grid-template-columns:repeat(4,1fr)"]{
+grid-template-columns:1fr!important;
+}
+
+h1{
+font-size:30px!important;
+}
+
+h2{
+font-size:24px!important;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="sidebar">
+    <h3>SmartSpend</h3>
+
+    <a href="/dashboard">Dashboard</a>
+    <a href="/add_expense">Add Expense</a>
+    <a href="/report">Reports</a>
+    <a href="/logout">Logout</a>
+</div>
+
+<div class="main">
+
+    <div class="glass-card" style="max-width:600px;">
+
+        <h3 class="mb-4">Edit Expense</h3>
+
+        <form method="POST">
+
+            <label class="mb-2">Category</label>
+            <input
+                name="category"
+                class="form-control mb-3"
+                value="{{ item[1] }}"
+                required>
+
+            <label class="mb-2">Amount</label>
+            <input
+                name="amount"
+                type="number"
+                class="form-control mb-3"
+                value="{{ item[2] }}"
+                required>
+
+            <label class="mb-2">Date</label>
+            <input
+                name="date"
+                type="date"
+                class="form-control mb-4"
+                value="{{ item[3] }}"
+                required>
+
+            <button class="btn w-100">
+                Update Expense
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

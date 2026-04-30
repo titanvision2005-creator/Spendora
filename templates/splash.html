@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Spendora</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:white;
+overflow:hidden;
+}
+
+.wrap{
+text-align:center;
+animation:fadeUp 1.2s ease;
+}
+
+.logo{
+width:130px;
+height:130px;
+object-fit:contain;
+animation:pop 1.3s ease;
+}
+
+h1{
+margin-top:18px;
+font-size:42px;
+font-weight:800;
+color:#111827;
+letter-spacing:.5px;
+}
+
+p{
+margin-top:10px;
+font-size:15px;
+color:#6b7280;
+letter-spacing:1px;
+}
+
+.loader{
+width:140px;
+height:4px;
+background:#e5e7eb;
+margin:28px auto 0;
+border-radius:10px;
+overflow:hidden;
+}
+
+.fill{
+height:100%;
+width:0%;
+background:#111827;
+animation:load 2.3s linear forwards;
+}
+
+@keyframes pop{
+0%{
+transform:scale(.6);
+opacity:0;
+}
+100%{
+transform:scale(1);
+opacity:1;
+}
+}
+
+@keyframes fadeUp{
+0%{
+opacity:0;
+transform:translateY(20px);
+}
+100%{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes load{
+0%{width:0%;}
+100%{width:100%;}
+}
+
+</style>
+
+<script>
+setTimeout(function(){
+window.location.href="/login_page";
+},2500);
+</script>
+
+</head>
+
+<body>
+
+<div class="wrap">
+
+<img
+src="{{ url_for('static', filename='logo.png') }}"
+class="logo">
+
+<h1>Spendora</h1>
+
+<p>Smart Finance • Better Future</p>
+
+<div class="loader">
+<div class="fill"></div>
+</div>
+
+</div>
+
+</body>
+</html>

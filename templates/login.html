@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | Spendora</title>
+
+<link rel="icon"
+href="{{ url_for('static', filename='logo.png') }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:#f8fafc;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.box{
+width:100%;
+max-width:430px;
+background:white;
+padding:38px;
+border-radius:24px;
+box-shadow:0 20px 40px rgba(0,0,0,.07);
+}
+
+.logo{
+text-align:center;
+margin-bottom:22px;
+}
+
+.logo img{
+width:88px;
+height:88px;
+object-fit:contain;
+}
+
+.logo h1{
+font-size:32px;
+font-weight:800;
+color:#111827;
+margin-top:10px;
+}
+
+.logo p{
+font-size:13px;
+color:#6b7280;
+letter-spacing:1px;
+margin-top:4px;
+}
+
+.msg{
+background:#fef2f2;
+color:#dc2626;
+padding:12px;
+border-radius:12px;
+font-size:14px;
+margin-bottom:16px;
+}
+
+label{
+display:block;
+font-size:14px;
+font-weight:600;
+margin-bottom:8px;
+color:#374151;
+margin-top:14px;
+}
+
+input{
+width:100%;
+padding:14px;
+border:1px solid #d1d5db;
+border-radius:14px;
+font-size:15px;
+outline:none;
+}
+
+input:focus{
+border-color:#111827;
+}
+
+button{
+width:100%;
+margin-top:22px;
+padding:14px;
+border:none;
+border-radius:14px;
+background:#111827;
+color:white;
+font-weight:700;
+font-size:15px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:.95;
+}
+
+.bottom{
+text-align:center;
+margin-top:18px;
+font-size:14px;
+color:#6b7280;
+}
+
+.bottom a{
+color:#111827;
+font-weight:700;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="box">
+
+<div class="logo">
+<img src="{{ url_for('static', filename='logo.png') }}">
+<h1>Spendora</h1>
+<p>Smart Finance Better Future</p>
+</div>
+
+{% if message %}
+<div class="msg">{{ message }}</div>
+{% endif %}
+
+<form method="POST" action="/login">
+
+<label>Email</label>
+<input
+type="email"
+name="email"
+required
+placeholder="Enter your email">
+
+<label>Password</label>
+<input
+type="password"
+name="password"
+required
+placeholder="Enter your password">
+
+<button type="submit">Login</button>
+
+</form>
+
+<div class="bottom">
+Don't have an account?
+<a href="/register">Register</a>
+</div>
+
+</div>
+
+</body>
+</html>

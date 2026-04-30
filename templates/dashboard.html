@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="display:flex; min-height:100vh; background:#f8fafc;">
+
+<!-- SIDEBAR -->
+<div style="
+width:250px;
+background:white;
+border-right:1px solid #e5e7eb;
+padding:30px 20px;
+">
+
+<div style="text-align:center; margin-bottom:35px;">
+<img src="{{ url_for('static', filename='logo.png') }}"
+style="width:85px;height:85px;object-fit:contain;">
+
+<h2 style="margin-top:12px;font-size:28px;font-weight:800;color:#111827;">
+Spendora
+</h2>
+
+<p style="font-size:12px;color:#6b7280;letter-spacing:1px;">
+Expense Intelligence
+</p>
+</div>
+
+<a href="/dashboard" style="display:block;padding:14px;margin-bottom:10px;background:#111827;color:white;border-radius:12px;text-decoration:none;font-weight:600;">🏠 Dashboard</a>
+
+<a href="/add_expense" style="display:block;padding:14px;margin-bottom:10px;color:#111827;text-decoration:none;font-weight:600;">➕ Add Expense</a>
+
+<a href="/report" style="display:block;padding:14px;margin-bottom:10px;color:#111827;text-decoration:none;font-weight:600;">📊 Reports</a>
+
+<a href="/logout" style="display:block;padding:14px;color:#dc2626;text-decoration:none;font-weight:600;">🚪 Logout</a>
+
+</div>
+
+<!-- MAIN -->
+<div style="flex:1; padding:35px;">
+
+<!-- TOP -->
+<div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px;">
+
+<div>
+<h1 style="font-size:40px;font-weight:800;color:#111827;">
+Welcome Back, {{ name }} 👋
+</h1>
+<p style="color:#6b7280;font-size:17px;">
+Your smart finance command center
+</p>
+</div>
+
+<form method="POST" action="/save_income"
+style="display:flex;gap:10px;flex-wrap:wrap;">
+
+<input type="number" step="0.01" name="income" required
+value="{{ income }}"
+placeholder="₹ Update Income"
+style="padding:14px 16px;width:220px;border:1px solid #d1d5db;border-radius:14px;">
+
+<button type="submit"
+style="padding:14px 22px;background:#111827;color:white;border:none;border-radius:14px;font-weight:700;">
+Save
+</button>
+
+</form>
+
+</div>
+
+<!-- SEARCH -->
+<form method="GET" action="/dashboard"
+style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;">
+
+<input type="text" name="search"
+placeholder="Search category..."
+style="padding:13px 16px;width:260px;border:1px solid #d1d5db;border-radius:14px;">
+
+<button type="submit"
+style="padding:13px 20px;background:#111827;color:white;border:none;border-radius:14px;font-weight:700;">
+Search
+</button>
+
+</form>
+
+<!-- CARDS -->
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:22px;">
+
+<div class="card-hover" style="background:white;padding:22px;border-radius:18px;box-shadow:0 10px 25px rgba(0,0,0,.05);">
+<p style="color:#6b7280;">Income</p>
+<h2 style="font-size:30px;font-weight:800;">₹{{ "{:,.0f}".format(income) }}</h2>
+</div>
+
+<div class="card-hover" style="background:white;padding:22px;border-radius:18px;box-shadow:0 10px 25px rgba(0,0,0,.05);">
+<p style="color:#6b7280;">Expense</p>
+<h2 style="font-size:30px;font-weight:800;">₹{{ "{:,.0f}".format(expense) }}</h2>
+</div>
+
+<div class="card-hover" style="background:white;padding:22px;border-radius:18px;box-shadow:0 10px 25px rgba(0,0,0,.05);">
+<p style="color:#6b7280;">Savings</p>
+<h2 style="font-size:30px;font-weight:800;color:{% if savings >=0 %}#16a34a{% else %}#dc2626{% endif %};">
+₹{{ "{:,.0f}".format(savings) }}
+</h2>
+</div>
+
+<div class="card-hover" style="background:white;padding:22px;border-radius:18px;box-shadow:0 10px 25px rgba(0,0,0,.05);">
+<p style="color:#6b7280;">Daily Avg</p>
+<h2 style="font-size:30px;font-weight:800;">₹{{ avg }}</h2>
+</div>
+
+</div>
+
+<!-- MIDDLE -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px;">
+
+<!-- BUDGET -->
+<div class="card-hover" style="background:white;padding:24px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,.05);">
+
+<h3 style="font-size:24px;margin-bottom:14px;">Set Budget</h3>
+
+<form method="POST" action="/save_budget">
+
+<select name="category" required
+style="width:100%;padding:13px;border:1px solid #d1d5db;border-radius:12px;margin-bottom:12px;">
+
+<option>Food</option>
+<option>Transport</option>
+<option>Shopping</option>
+<option>Bills</option>
+<option>Health</option>
+<option>Entertainment</option>
+<option>Other</option>
+
+</select>
+
+<input type="number" step="0.01" name="amount" required
+placeholder="Budget Amount"
+style="width:100%;padding:13px;border:1px solid #d1d5db;border-radius:12px;margin-bottom:12px;">
+
+<button style="width:100%;padding:13px;background:#111827;color:white;border:none;border-radius:12px;font-weight:700;">
+Save Budget
+</button>
+
+</form>
+
+{% for b in budgets %}
+<p style="margin-top:10px;color:#374151;">
+{{ b["category"] }} : ₹{{ b["amount"] }}
+</p>
+{% endfor %}
+
+</div>
+
+<!-- ALERT -->
+<div class="card-hover" style="background:white;padding:24px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,.05);">
+
+<h3 style="font-size:24px;margin-bottom:14px;">Smart Alert</h3>
+
+<p style="color:#dc2626;font-weight:700;margin-bottom:14px;">
+{{ alert }}
+</p>
+
+<ul style="line-height:2;">
+{% for item in recommendations %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+</div>
+
+<!-- BOTTOM -->
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:18px;">
+
+<!-- TRANSACTIONS -->
+<div class="card-hover" style="background:white;padding:24px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,.05);">
+
+<h3 style="font-size:24px;margin-bottom:14px;">Recent Transactions</h3>
+
+<table style="width:100%;border-collapse:collapse;">
+
+<tr style="background:#f8fafc;">
+<th style="padding:10px;text-align:left;">Category</th>
+<th style="padding:10px;text-align:left;">Amount</th>
+<th style="padding:10px;text-align:left;">Date</th>
+<th style="padding:10px;text-align:left;">Action</th>
+</tr>
+
+{% for row in recent %}
+<tr style="border-top:1px solid #eef2f7;">
+<td style="padding:10px;">{{ row["category"] }}</td>
+<td style="padding:10px;">₹{{ "{:,.0f}".format(row["amount"]) }}</td>
+<td style="padding:10px;">{{ row["date"] }}</td>
+<td style="padding:10px;">
+<a href="/delete/{{ row['id'] }}"
+style="background:#dc2626;color:white;padding:7px 10px;border-radius:10px;text-decoration:none;font-size:13px;">
+Delete
+</a>
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+<!-- NOTES -->
+<div class="card-hover" style="background:white;padding:24px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,.05);">
+
+<h3 style="font-size:24px;margin-bottom:14px;">Notifications</h3>
+
+{% for n in notes %}
+<p style="margin-bottom:12px;font-size:14px;">
+{{ n["message"] }}<br>
+<span style="color:#6b7280;font-size:12px;">
+{{ n["created_at"] }}
+</span>
+</p>
+{% endfor %}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}
